@@ -3,15 +3,18 @@ import json
 import requests
 from flask import Flask, redirect, render_template, request, url_for
 from flask_login import LoginManager, login_required, login_user, logout_user
+from flask_sqlalchemy import SQLAlchemy
 from oauthlib.oauth2 import WebApplicationClient
 
 import config
-from models import User
 
 app = Flask(__name__)
-app.secret_key = config.secret_key
+app.config.from_object("app_config")
+database = SQLAlchemy(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
+
+from models import User  # noqa
 
 
 @login_manager.unauthorized_handler
@@ -83,8 +86,3 @@ def callback():
 def logout():
     logout_user()
     return redirect(url_for("index"))
-
-
-if __name__ == "__main__":
-    ssl_context = ("openssl/server.crt", "openssl/private.key")
-    app.run(debug=True, ssl_context=ssl_context)
