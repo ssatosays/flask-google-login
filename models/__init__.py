@@ -6,7 +6,7 @@ from app import database as db
 
 
 class User(UserMixin, db.Model):
-    __tablename__ = 'users'
+    __tablename__ = "users"
 
     id = db.Column(db.Integer, primary_key=True)
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.now)
@@ -18,7 +18,7 @@ class User(UserMixin, db.Model):
 
 
 class Log(db.Model):
-    __tablename__ = 'logs'
+    __tablename__ = "logs"
 
     id = db.Column(db.Integer, primary_key=True)
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.now)
