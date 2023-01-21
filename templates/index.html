@@ -1,1 +1,5 @@
-helloworld
+{% if current_user.is_authenticated %}
+  <span>logined</span>
+{% else %}
+  <a href="/login">login</a>
+{% endif %}
