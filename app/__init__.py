@@ -24,7 +24,8 @@ def unauthorized_handler():
 
 @login_manager.user_loader
 def load_user(user_id):
-    return User(id_=user_id)
+    user = database.get_or_404(User, user_id)
+    return user
 
 
 @app.route("/")
@@ -71,11 +72,18 @@ def callback():
     userinfo = userinfo_response.json()
 
     if userinfo.get("email_verified"):
-        _ = userinfo["sub"], userinfo["email"], userinfo["picture"], userinfo["given_name"]
+        userinfo_tuple = userinfo["sub"], userinfo["email"], userinfo["picture"], userinfo["given_name"]
+        print(userinfo_tuple)
     else:
         return "not verified", 400
 
-    user = User(id_=310)
+    user, = database.session.execute(
+        database.select(User).filter(User.sub == userinfo["sub"])).first() or (None,)
+    if not user:
+        user = User(sub=userinfo["sub"])
+        database.session.add(user)
+        database.session.commit()
+        database.session.refresh(user)
     login_user(user)
 
     return redirect(url_for("index"))
