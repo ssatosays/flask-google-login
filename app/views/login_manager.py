@@ -1,5 +1,4 @@
-from app import database as db
-from app import login_manager
+from app import db, login_manager
 from models import User
 
 

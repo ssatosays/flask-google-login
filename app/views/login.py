@@ -6,8 +6,7 @@ from flask_login import login_required, login_user, logout_user
 from oauthlib.oauth2 import WebApplicationClient
 
 import config
-from app import app
-from app import database as db
+from app import app, db
 from models import User
 
 
