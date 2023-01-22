@@ -1,6 +1,6 @@
 from flask_migrate import Migrate
 
 from app import app, database
-from models import *  # noqa: F403 F401
+from models import *  # noqa: F401 F403
 
 migrate = Migrate(app, database)
