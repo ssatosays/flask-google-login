@@ -5,6 +5,12 @@ Installation:
 $ pip install -r requirements.txt
 ```
 
+Create config files:
+```bash
+$ cp -p app_config/__init__.py.example app_config/__init__.py
+$ cp -p config/__init__.py.example config/__init__.py
+```
+
 Migraton:
 ```bash
 $ FLASK_APP=manage.py flask db init
