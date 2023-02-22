@@ -1,7 +1,8 @@
 import json
+import os
 
 import requests
-from flask import redirect, render_template, request, url_for
+from flask import redirect, render_template, request, send_from_directory, url_for
 from flask_login import login_required, login_user, logout_user
 from oauthlib.oauth2 import WebApplicationClient
 
@@ -13,6 +14,11 @@ from models import User
 @app.route("/")
 def index():
     return render_template("index.html")
+
+
+@app.route("/favicon.ico")
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, "static/image"), "favicon.png")
 
 
 @app.route("/login")
