@@ -52,11 +52,9 @@ def callback():
     uri, headers, body = client.add_token(userinfo_endpoint)
     userinfo_response = requests.get(uri, headers=headers, data=body)
     userinfo = userinfo_response.json()
+    # print(userinfo)
 
-    if userinfo.get("email_verified"):
-        userinfo_tuple = userinfo["sub"], userinfo["email"], userinfo["picture"], userinfo["given_name"]
-        print(userinfo_tuple)
-    else:
+    if not userinfo.get("email_verified"):
         return "not verified", 400
 
     user, = db.session.execute(
