@@ -4,15 +4,50 @@
     <meta charset="utf-8">
     <title>flask-google-login</title>
   </head>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    th, td {
+      text-align: left;
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+    tr:hover {
+      background-color: #f5f5f5;
+    }
+  </style>
   <body>
     {% if current_user.is_authenticated %}
       <a href="/logout">logout</a>
-      <ul>
-        <li>id: {{ current_user.id }}</li>
-        <li>created_at: {{ current_user.created_at }}</li>
-        <li>update_at: {{ current_user.update_at }}</li>
-        <li>sub: {{ current_user.sub }}</li>
-      </ul>
+      <table>
+        <tr>
+          <th>key</th>
+          <th>val</th>
+        </tr>
+        <tr>
+          <td>id</td>
+          <td>{{ current_user.id }}</td>
+        </tr>
+        <tr>
+          <td>created_at</td>
+          <td>{{ current_user.created_at }}</td>
+        </tr>
+        <tr>
+          <td>update_at</td>
+          <td>{{ current_user.update_at }}</td>
+        </tr>
+        <tr>
+          <td>sub</td>
+          <td>{{ current_user.sub|int }}</td>
+        </tr>
+      </table>
     {% else %}
       <a href="/login">login</a>
     {% endif %}
