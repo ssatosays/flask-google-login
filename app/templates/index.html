@@ -32,7 +32,7 @@
       <div>
         <a href="/logout">logout</a>
         <div>
-          <img src="https://interactive-examples.mdn.mozilla.net/media/cc0-images/grapefruit-slice-332-332.jpg"></img>
+          <img src="{{ current_user.picture }}"></img>
         </div>
         <table>
           <tr>
@@ -54,6 +54,18 @@
           <tr>
             <td>sub</td>
             <td>{{ current_user.sub|int }}</td>
+          </tr>
+          <tr>
+            <td>email</td>
+            <td>{{ current_user.email }}</td>
+          </tr>
+          <tr>
+            <td>picture</td>
+            <td>{{ current_user.picture }}</td>
+          </tr>
+          <tr>
+            <td>given_name</td>
+            <td>{{ current_user.given_name }}</td>
           </tr>
         </table>
       </div>

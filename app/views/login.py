@@ -62,7 +62,12 @@ def callback():
     user, = db.session.execute(
         db.select(User).filter(User.sub == userinfo["sub"])).first() or (None,)
     if not user:
-        user = User(sub=userinfo["sub"])
+        user = User(
+            sub=userinfo["sub"],
+            email=userinfo["email"],
+            picture=userinfo["picture"],
+            given_name=userinfo["given_name"]
+        )
         db.session.add(user)
         db.session.commit()
         db.session.refresh(user)
