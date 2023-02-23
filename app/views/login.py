@@ -17,7 +17,8 @@ def index():
     logs = None
     if current_user.is_authenticated:
         # print(current_user.id)
-        logs = db.session.execute(db.select(Log)).scalars()
+        logs = db.session.execute(
+            db.select(Log).filter(Log.user_id == current_user.id)).scalars()
     return render_template("index.html", logs=logs)
 
 
@@ -80,9 +81,9 @@ def callback():
         db.session.add(user)
         db.session.commit()
         db.session.refresh(user)
-        insert_log(db, comment="Created User model and logined.")
+        insert_log(db, comment="Created User model and logined.", user_id=user.id)
     else:
-        insert_log(db, comment="Logined.")
+        insert_log(db, comment="Logined.", user_id=user.id)
     login_user(user)
 
     return redirect(url_for("index"))

@@ -30,3 +30,4 @@ class Log(db.Model):
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.now)
     update_at = db.Column(db.DateTime, nullable=False, default=datetime.now)
     comment = db.Column(db.String(255), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
