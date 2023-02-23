@@ -9,6 +9,7 @@ from oauthlib.oauth2 import WebApplicationClient
 import config
 from app import app, db
 from models import User
+from utils import insert_log
 
 
 @app.route("/")
@@ -75,6 +76,9 @@ def callback():
         db.session.add(user)
         db.session.commit()
         db.session.refresh(user)
+        insert_log(db, comment="Created User model and logined.")
+    else:
+        insert_log(db, comment="Logined.")
     login_user(user)
 
     return redirect(url_for("index"))
