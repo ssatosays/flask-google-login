@@ -17,7 +17,8 @@ def index():
     logs = None
     if current_user.is_authenticated:
         logs = db.session.execute(
-            db.select(Log).filter(Log.user_id == current_user.id)).scalars()
+            db.select(Log).order_by(Log.update_at.desc()).filter(Log.user_id == current_user.id)
+        ).scalars()
     return render_template("index.html", logs=logs)
 
 
