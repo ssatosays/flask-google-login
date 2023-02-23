@@ -16,7 +16,6 @@ from utils import insert_log
 def index():
     logs = None
     if current_user.is_authenticated:
-        # print(current_user.id)
         logs = db.session.execute(
             db.select(Log).filter(Log.user_id == current_user.id)).scalars()
     return render_template("index.html", logs=logs)
