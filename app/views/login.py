@@ -3,18 +3,22 @@ import os
 
 import requests
 from flask import redirect, render_template, request, send_from_directory, url_for
-from flask_login import login_required, login_user, logout_user
+from flask_login import current_user, login_required, login_user, logout_user
 from oauthlib.oauth2 import WebApplicationClient
 
 import config
 from app import app, db
-from models import User
+from models import Log, User
 from utils import insert_log
 
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    logs = None
+    if current_user.is_authenticated:
+        # print(current_user.id)
+        logs = db.session.execute(db.select(Log)).scalars()
+    return render_template("index.html", logs=logs)
 
 
 @app.route("/favicon.ico")
